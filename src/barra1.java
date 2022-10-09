@@ -42,10 +42,10 @@ public class barra1 {
     public void keyPressed(KeyEvent e){
         int key = e.getKeyCode();
         if(key == KeyEvent.VK_W){
-            vy = -3;
+            vy = -5;
         }
         if(key == KeyEvent.VK_S){
-            vy = 3;
+            vy = 5;
         }
     }
     public void keyReleased(KeyEvent e){

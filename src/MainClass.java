@@ -21,6 +21,8 @@ public class MainClass extends JFrame {
         private Timer loop;
         private barra1 b1;
         private barra2 b2;
+        private pelota p;
+        private int puntos;
         public component(){
             addKeyListener(new eventos());
             setFocusable(true);
@@ -29,13 +31,26 @@ public class MainClass extends JFrame {
             loop.start();
             b1 = new barra1();
             b2 = new barra2();
+            p = new pelota();
+            puntos = 0;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
             b1.moverBarra();
             b2.moverBarra();
+            p.moverPelota();
             repaint();
+            if(p.getBounds().intersects(b2.getBounds())){
+                p.setVx(-5);
+                p.setVy(-3);
+                puntos++;
+            }
+            if(p.getBounds().intersects(b1.getBounds())){
+                p.setVx(5);
+                p.setVy(3);
+                puntos++;
+            }
         }
         @Override
         public void paintComponent(Graphics g){
@@ -45,6 +60,8 @@ public class MainClass extends JFrame {
             g2.setColor(Color.white);
             g2.fillRect(b1.getX(), b1.getY(), b1.getW(),b1.getH());
             g2.fillRect(b2.getX(), b2.getY(), b2.getW(),b2.getH());
+            g2.fillOval(p.getX(),p.getY(),p.getW(),p.getH());
+            g2.drawString("Puntos: " + String.valueOf(puntos), 700,20);
             Toolkit.getDefaultToolkit().sync();
             g.dispose();
         }
